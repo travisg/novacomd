@@ -601,7 +601,8 @@ int novacom_usbll_process_packet(novacom_usbll_handle_t usbll_handle, const char
 							}
 							/* recover data */
 							if( (syn_len >= (sizeof(struct usbll_syn_header) + syn_header->data_length))
-									&& (syn_len >= (syn_header->data_length + syn_header->data_offset)) ) {
+									&& (syn_len >= (syn_header->data_length + syn_header->data_offset))
+									&& syn_header->data_length > 0) {
 								syn_data = (char *)syn_header + syn_header->data_offset;
 								syn_data[syn_header->data_length-1] = 0;	/*explicitly add null string termination, even if it is expected */
 							} else if(syn_len > offsetof(struct usbll_syn_header, data_offset)){
